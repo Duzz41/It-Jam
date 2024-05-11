@@ -12,6 +12,7 @@ public class CameraMovement : MonoBehaviour
     private Transform _target1;
     [SerializeField]
     private Transform _target2;
+    private bool _isFighting = false;
 
     void Start()
     {
@@ -20,13 +21,17 @@ public class CameraMovement : MonoBehaviour
     //Savaş başladığı vakit kameranın hareketini başlatır oyunu başlatacak olan butona bağladım.
     public void CameraMove()
     {
-        transform.DOMove(_target1.position, 5f);
-        transform.DORotate(_target1.rotation.eulerAngles, 5f).OnComplete(() => MoveSecondLocation());
+        if (_isFighting == false)
+        {
+            _isFighting = true;
+            transform.DOMove(_target1.position, 5f);
+            transform.DORotate(_target1.rotation.eulerAngles, 5f).OnComplete(() => MoveSecondLocation());
+        }
     }
     void MoveSecondLocation()
     {
         transform.DOMove(_target2.position, 4f);
-        transform.DORotate(_target2.rotation.eulerAngles, 4f);
+        transform.DORotate(_target2.rotation.eulerAngles, 4f).OnComplete(() => _isFighting = false);
     }
     //Şu anda butona bağlı bunu savaş bittiği vakit olacak olan fonksiyona bağlanacak.
     public void CameraMoveBack()
