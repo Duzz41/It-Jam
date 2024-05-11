@@ -8,10 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/WarScene_Osman.unity
     guid: eb8b4d05fb140e84f8cad45d59b30d81
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: a9cd0ad6f2dbdf4418602c7bb1ff3de3
+  - enabled: 1
+    path: Assets/Scenes/SemTest.unity
+    guid: ab97e4f8bc0002b46ab72a1ca5ba515f
   m_configObjects: {}
