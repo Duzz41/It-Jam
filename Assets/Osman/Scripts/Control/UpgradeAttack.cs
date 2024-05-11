@@ -28,7 +28,7 @@ public class UpgradeAttack : MonoBehaviour
 
                     MoneyManager.instance.RemoveMoney(upgradeCost);
                     EvntManager.TriggerEvent("UpgradeAttack");
-                    upgradeCost += upgradeCost;
+                    upgradeCost += 30;
                     Debug.Log(MoneyManager.instance.money);
                 }
                 else

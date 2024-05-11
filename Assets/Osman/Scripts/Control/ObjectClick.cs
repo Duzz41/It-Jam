@@ -23,6 +23,7 @@ public class ObjectClick : MonoBehaviour
             {
                 if (GameManager.instance.currentSoldierCount != 0)
                 {
+                    GameManager.instance.SpawnAllEnemies();
                     EvntManager.TriggerEvent("Atack");
                     EvntManager.TriggerEvent("CameraMove");
                 }

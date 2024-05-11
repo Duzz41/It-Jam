@@ -28,7 +28,7 @@ public class IncreaseHealth : MonoBehaviour
 
                     MoneyManager.instance.RemoveMoney(upgradeCost);
                     EvntManager.TriggerEvent("IncrHealth", 10);
-                    upgradeCost += upgradeCost;
+                    upgradeCost += 20;
                     Debug.Log(MoneyManager.instance.money);
                 }
                 else

@@ -32,7 +32,6 @@ public class SoldierStats : MonoBehaviour
             isDead = false;
             GameManager.instance.currentSoldierCount--;
             Destroy(gameObject);
-
         }
     }
     public void IncreaseHealth(int amount)
