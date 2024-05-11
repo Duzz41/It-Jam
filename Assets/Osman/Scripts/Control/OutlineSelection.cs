@@ -41,7 +41,6 @@ public class OutlineSelection : MonoBehaviour
             highlight = raycastHit.transform;
             if (highlight.CompareTag("Selectable") && highlight != selection)
             {
-                Debug.Log("naberr");
                 if (highlight.gameObject.GetComponent<Outline>() != null)
                 {
                     highlight.gameObject.GetComponent<Outline>().enabled = true;

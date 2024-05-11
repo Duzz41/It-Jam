@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyStats : MonoBehaviour
 {
     public int maxHealth = 100;
+    [SerializeField] int prizeAmount;
     public int currentHealth;
     private void Start()
     {
@@ -17,6 +18,7 @@ public class EnemyStats : MonoBehaviour
         if (currentHealth <= 0)
         {
             EvntManager.TriggerEvent("DeathSoud");
+            MoneyManager.instance.AddMoney(prizeAmount);
             Invoke(nameof(Die), 0.5f);
         }
     }

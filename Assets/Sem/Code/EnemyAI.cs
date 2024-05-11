@@ -27,7 +27,7 @@ public class EnemyAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _audioSource.volume = AudioManager.instance.sfxSource.volume;
+        _audioSource.volume = AudioManager.instance.sfxSource.volume / 2f;
         if (!isAttacking & target != null)
         {
             StartCoroutine(nameof(Attack));
@@ -38,7 +38,6 @@ public class EnemyAI : MonoBehaviour
         // Her 2 saniyede bir en yakın düşman kontrolü
         if (Time.time - lastAttackTime >= 2f && target == null)
         {
-            Debug.Log("Searching for enemies...");
             SearchForEnemies();
             lastAttackTime = Time.time;
         }
@@ -59,7 +58,6 @@ public class EnemyAI : MonoBehaviour
                 _audioSource.PlayOneShot(_shoot, 0.5f);
 
                 target.TakeDamage(damage);
-                Debug.Log("Attacking soldier!");
             }
 
             // Saldırı tamamlandıktan sonra isAttacking değerini false olarak ayarla

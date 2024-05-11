@@ -30,12 +30,13 @@ public class SoldierAI : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         EvntManager.StartListening("Atack", AttackForward);
         EvntManager.StartListening("DeathSoud", DeathSound);
+        EvntManager.StartListening("UpgradeAttack", UpgradeAttackStats);
     }
 
 
     private void Update()
     {
-        _audioSource.volume = AudioManager.instance.sfxSource.volume;
+        _audioSource.volume = AudioManager.instance.sfxSource.volume / 2f;
         if (attackPoint == null)
         {
             attackPointTimer -= Time.deltaTime;
@@ -82,6 +83,7 @@ public class SoldierAI : MonoBehaviour
     }
     void AttackForward()
     {
+        target = GameObject.FindWithTag("Target").transform;
         SetDestination(target.position);
     }
 
@@ -156,5 +158,9 @@ public class SoldierAI : MonoBehaviour
     public void DeathSound()
     {
         _audioSource.PlayOneShot(_die[Random.Range(0, 2)], 0.5f);
+    }
+    public void UpgradeAttackStats()
+    {
+        damage += 10;
     }
 }

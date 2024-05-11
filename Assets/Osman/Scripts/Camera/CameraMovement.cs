@@ -12,7 +12,8 @@ public class CameraMovement : MonoBehaviour
     private Transform _target1;
     [SerializeField]
     private Transform _target2;
-    private bool _isFighting = false;
+
+    public bool _isFighting = false;
 
     void Start()
     {
@@ -34,16 +35,19 @@ public class CameraMovement : MonoBehaviour
     void MoveSecondLocation()
     {
         transform.DOMove(_target2.position, 4f);
-        transform.DORotate(_target2.rotation.eulerAngles, 4f).OnComplete(() => _isFighting = false);
+        transform.DORotate(_target2.rotation.eulerAngles, 4f);
     }
     //Şu anda butona bağlı bunu savaş bittiği vakit olacak olan fonksiyona bağlanacak.
     public void CameraMoveBack()
     {
+        _isFighting = false;
+        Debug.Log("Naber");
         transform.DOMove(_target1.position, 4f);
         transform.DORotate(_target1.rotation.eulerAngles, 4f).OnComplete(() => MoveFirstLocation());
     }
     void MoveFirstLocation()
     {
+
         transform.DOMove(_startPos.position, 5f);
         transform.DORotate(_startPos.rotation.eulerAngles, 5f);
     }

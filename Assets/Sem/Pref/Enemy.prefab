@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  prizeAmount: 10
   currentHealth: 0
 --- !u!114 &7526477858826584588
 MonoBehaviour:

@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectClick : MonoBehaviour
+public class UpgradeAttack : MonoBehaviour
 {
+    private int upgradeCost = 20;
     private void OnMouseDown()
     {
+
         // Fare imlecinin konumunu al
         Vector3 mousePosition = Input.mousePosition;
 
@@ -21,11 +23,16 @@ public class ObjectClick : MonoBehaviour
             // Fare imlecinin dünya koordinatları ile nesnenin dünya koordinatlarını karşılaştır
             if (hit.collider.gameObject == gameObject)
             {
-                if (GameManager.instance.currentSoldierCount != 0)
+                if (MoneyManager.instance.money >= upgradeCost)
                 {
-                    EvntManager.TriggerEvent("Atack");
-                    EvntManager.TriggerEvent("CameraMove");
+
+                    MoneyManager.instance.RemoveMoney(upgradeCost);
+                    EvntManager.TriggerEvent("UpgradeAttack");
+                    upgradeCost += upgradeCost;
+                    Debug.Log(MoneyManager.instance.money);
                 }
+                else
+                    Debug.Log("Yeterli paran yok");
                 // Nesne ile imlecin konumu çakışıyor, istediğiniz işlemi yapabilirsiniz
             }
         }
