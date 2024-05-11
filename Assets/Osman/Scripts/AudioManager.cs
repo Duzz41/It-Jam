@@ -9,10 +9,7 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager instance;
     public Sound[] musicSounds, sfxSounds;
-    public AudioSource musicSource, sfxSource, backgroundSource, chaseSource;
-    public GameObject player;
-
-    // public FirstPersonController FPController;
+    public AudioSource musicSource, sfxSource, backgroundSource;
 
     private void Awake()
     {
@@ -29,22 +26,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-
         PlayMusic("Theme");
-        MusicVolume(PlayerPrefs.GetFloat("MusicVolume"));
-        SFXVolume(PlayerPrefs.GetFloat("SFXVolume"));
-    }
-    void Update()
-    {
-        FindObject();
-    }
-    public void FindObject()
-    {
-        if (SceneManager.GetActiveScene().name == "Forest2")
-        {
-
-            player = GameObject.FindGameObjectWithTag("Player");
-        }
     }
 
 
@@ -79,22 +61,6 @@ public class AudioManager : MonoBehaviour
             backgroundSource.Play();
         }
     }
-    public void PlayChase(string name)
-    {
-        Sound s = Array.Find(musicSounds, x => x.name == name);
-
-        if (s == null)
-        {
-            Debug.Log("Sound: " + name + " not found");
-        }
-        else
-        {
-            chaseSource.spatialBlend = 0f;
-            chaseSource.clip = s.clip[UnityEngine.Random.Range(0, s.clip.Count)];
-            chaseSource.Play();
-        }
-    }
-
     public void PlaySFXOneShot(string name)
     {
 
@@ -105,19 +71,15 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-
-            sfxSource.gameObject.transform.position = player.transform.position;
             sfxSource.spatialBlend = 1f;
             sfxSource.clip = s.clip[0];
             sfxSource.PlayOneShot(sfxSource.clip);
-
         }
     }
 
     public void MusicVolume(float volume)
     {
         musicSource.volume = volume;
-        chaseSource.volume = volume;
     }
 
     public void SFXVolume(float volume)

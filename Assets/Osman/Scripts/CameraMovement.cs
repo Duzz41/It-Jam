@@ -20,24 +20,24 @@ public class CameraMovement : MonoBehaviour
     //Savaş başladığı vakit kameranın hareketini başlatır oyunu başlatacak olan butona bağladım.
     public void CameraMove()
     {
-        transform.DOMove(_target1.position, 2f);
-        transform.DORotate(_target1.rotation.eulerAngles, 2f).OnComplete(() => MoveSecondLocation());
+        transform.DOMove(_target1.position, 5f);
+        transform.DORotate(_target1.rotation.eulerAngles, 5f).OnComplete(() => MoveSecondLocation());
     }
     void MoveSecondLocation()
     {
-        transform.DOMove(_target2.position, 2f);
-        transform.DORotate(_target2.rotation.eulerAngles, 2f);
+        transform.DOMove(_target2.position, 4f);
+        transform.DORotate(_target2.rotation.eulerAngles, 4f);
     }
     //Şu anda butona bağlı bunu savaş bittiği vakit olacak olan fonksiyona bağlanacak.
     public void CameraMoveBack()
     {
-        transform.DOMove(_target1.position, 2f);
-        transform.DORotate(_target1.rotation.eulerAngles, 2f).OnComplete(() => MoveFirstLocation());
+        transform.DOMove(_target1.position, 4f);
+        transform.DORotate(_target1.rotation.eulerAngles, 4f).OnComplete(() => MoveFirstLocation());
     }
     void MoveFirstLocation()
     {
-        transform.DOMove(_startPos.position, 2f);
-        transform.DORotate(_startPos.rotation.eulerAngles, 2f);
+        transform.DOMove(_startPos.position, 5f);
+        transform.DORotate(_startPos.rotation.eulerAngles, 5f);
     }
     //Kamera shake her bir askerimiz öldüğünde olur diye düşünüyorum şu anda butona bağlı değişecek.
     public void CameraShake()
