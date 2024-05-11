@@ -6,19 +6,20 @@ public class SoldierStats : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth;
+    //Tüm askerlerimiz öldüğünde CameraShake eventmanagerı çağırılması.
     private void Start()
     {
         currentHealth = maxHealth;
     }
     public void TakeDamage(int damage)
     {
-        Debug.Log("AH UH AH");
 
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            Debug.Log("Dead sold");
-            Die();
+            EvntManager.TriggerEvent("DeathSoud");
+            EvntManager.TriggerEvent("CameraShake");
+            Invoke(nameof(Die), 0.5f);
         }
     }
 

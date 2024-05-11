@@ -6,13 +6,16 @@ using UnityEngine.AI;
 
 public class SoldierAI : MonoBehaviour
 {
+    private AudioSource _audioSource;
+    public AudioClip _shoot;
+    public AudioClip[] _die;
     public Transform target; // Hedef nokta (örneğin, askerin ilk ulaşması gereken nokta)
     public Transform attackPoint; // Saldırı noktası (örneğin, düşmana ateş edilecek nokta)
     public float detectionRadius = 10f; // Düşman algılama yarıçapı
     public LayerMask enemyLayer; // Düşmanın katmanı
     public float attackRange = 2f; // Saldırı menzili
     public float attackCooldown = 2f; // Saldırı bekleme süresi
-
+    private float attackPointTimer = 2f;
     public int damage;
 
     private NavMeshAgent navMeshAgent;
@@ -20,18 +23,28 @@ public class SoldierAI : MonoBehaviour
     private bool isAttacking = false; // Saldırı durumu
     private List<Transform> enemyTransforms = new List<Transform>();
     private float attackTimer = 0f; // Saldırı zamanlayıcı
-    public bool startAttack = false;
 
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-
+        _audioSource = GetComponent<AudioSource>();
+        EvntManager.StartListening("Atack", AttackForward);
+        EvntManager.StartListening("DeathSoud", DeathSound);
     }
 
 
     private void Update()
     {
-        AttackForward();
+        _audioSource.volume = AudioManager.instance.sfxSource.volume;
+        if (attackPoint == null)
+        {
+            attackPointTimer -= Time.deltaTime;
+            if (attackPointTimer <= 0f)
+            {
+                SearchForEnemies();
+                attackPointTimer = 2f; // Zamanlayıcıyı sıfırla
+            }
+        }
         if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance >= navMeshAgent.stoppingDistance)
         {
             SearchForEnemies();
@@ -57,7 +70,6 @@ public class SoldierAI : MonoBehaviour
         }
         else if (!isAttacking)
         {
-            // Check for enemies within detection radius
             Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, enemyLayer);
 
             if (colliders.Length > 0)
@@ -70,11 +82,7 @@ public class SoldierAI : MonoBehaviour
     }
     void AttackForward()
     {
-        if (startAttack == true)
-        {
-            SetDestination(target.position);
-            startAttack = false;
-        }
+        SetDestination(target.position);
     }
 
     private void SearchForEnemies()
@@ -111,6 +119,7 @@ public class SoldierAI : MonoBehaviour
             }
         }
     }
+
     private IEnumerator Attack()
     {
         isAttacking = true;
@@ -121,17 +130,16 @@ public class SoldierAI : MonoBehaviour
             {
                 if (nearestEnemy.GetComponent<EnemyStats>() != null) // Check if the enemy still exists
                 {
+                    _audioSource.PlayOneShot(_shoot, 0.5f);
                     nearestEnemy.GetComponent<EnemyStats>().TakeDamage(damage);
-                    Debug.Log("Attacking enemy!");
-                    attackTimer = attackCooldown;
 
-                    SearchForEnemies(); // Update the list of enemies
-                    FindNearestEnemy(); // Find the nearest enemy again
+                    attackTimer = attackCooldown;
                 }
                 else
                 {
-                    isAttacking = false;
-                    yield break; // Exit the coroutine if the enemy is no longer valid
+                    nearestEnemy = null;
+                    StopCoroutine(nameof(Attack));
+                    break;
                 }
             }
 
@@ -140,14 +148,13 @@ public class SoldierAI : MonoBehaviour
 
         isAttacking = false;
     }
+
     private void SetDestination(Vector3 destination)
     {
         navMeshAgent.SetDestination(destination);
     }
-
-    private void OnDrawGizmosSelected()
+    public void DeathSound()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        _audioSource.PlayOneShot(_die[Random.Range(0, 2)], 0.5f);
     }
 }

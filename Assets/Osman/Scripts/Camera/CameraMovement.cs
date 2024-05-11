@@ -17,6 +17,9 @@ public class CameraMovement : MonoBehaviour
     void Start()
     {
         _camera = GetComponent<Camera>();
+        EvntManager.StartListening("CameraMove", CameraMove);
+        EvntManager.StartListening("CameraMoveBack", CameraMoveBack);
+        EvntManager.StartListening("CameraShake", CameraShake);
     }
     //Savaş başladığı vakit kameranın hareketini başlatır oyunu başlatacak olan butona bağladım.
     public void CameraMove()
@@ -47,6 +50,6 @@ public class CameraMovement : MonoBehaviour
     //Kamera shake her bir askerimiz öldüğünde olur diye düşünüyorum şu anda butona bağlı değişecek.
     public void CameraShake()
     {
-        _camera.DOShakePosition(0.5f, 0.5f, 10, 90, false, ShakeRandomnessMode.Full);
+        _camera.DOShakePosition(0.5f, 0.25f, 10, 90, false, ShakeRandomnessMode.Full);
     }
 }

@@ -15,11 +15,19 @@ public class EnemyAI : MonoBehaviour
 
     private float lastAttackTime = 0f;
     private List<SoldierStats> nearestSoldiers = new List<SoldierStats>();
+    private AudioSource _audioSource;
+    public AudioClip _shoot;
+    public AudioClip[] _die;
 
+    void Start()
+    {
+        _audioSource = GetComponent<AudioSource>();
+        EvntManager.StartListening("DeathSoud", DieSoundPlay);
+    }
 
     private void FixedUpdate()
     {
-
+        _audioSource.volume = AudioManager.instance.sfxSource.volume;
         if (!isAttacking & target != null)
         {
             StartCoroutine(nameof(Attack));
@@ -48,6 +56,8 @@ public class EnemyAI : MonoBehaviour
             if (target != null)
             {
                 // Askere zarar verme işlemi
+                _audioSource.PlayOneShot(_shoot, 0.5f);
+
                 target.TakeDamage(damage);
                 Debug.Log("Attacking soldier!");
             }
@@ -91,5 +101,9 @@ public class EnemyAI : MonoBehaviour
         }
 
         return nearestSoldier?.transform;
+    }
+    public void DieSoundPlay()
+    {
+        _audioSource.PlayOneShot(_die[UnityEngine.Random.Range(0, 2)], 0.5f);
     }
 }

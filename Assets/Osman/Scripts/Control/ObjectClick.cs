@@ -22,6 +22,8 @@ public class ObjectClick : MonoBehaviour
             if (hit.collider.gameObject == gameObject)
             {
                 Debug.Log("Nesneye tıklandı!");
+                EvntManager.TriggerEvent("Atack");
+                EvntManager.TriggerEvent("CameraMove");
                 // Nesne ile imlecin konumu çakışıyor, istediğiniz işlemi yapabilirsiniz
             }
         }

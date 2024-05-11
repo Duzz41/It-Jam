@@ -1045,10 +1045,7 @@ MonoBehaviour:
   - name: Theme
     clip:
     - {fileID: 8300000, guid: e851b778c6a49c64cbe52bc2944c8e18, type: 3}
-  sfxSounds:
-  - name: Hit
-    clip:
-    - {fileID: 0}
+  sfxSounds: []
   musicSource: {fileID: 966160066}
   sfxSource: {fileID: 839201232}
   backgroundSource: {fileID: 1804847096}
