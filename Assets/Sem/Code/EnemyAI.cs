@@ -5,26 +5,36 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    public bool canMove = true; // Düşmanın hareket edip edemeyeceği
+
     public int damage = 10; // Düşmanın verdiği zarar miktarı
 
-    private Transform target; // Hareket etmesi gereken hedef
+    private SoldierStats target; // Hareket etmesi gereken hedef
     private bool isAttacking = false; // Saldırı durumu
+    public float detectionRadius = 10f; // Düşman algılama yarıçapı
+    public LayerMask enemyLayer; // Düşmanın katmanı
 
-    private void Start()
-    {
-        target = FindNearestSoldier(); // En yakın askeri bul
-    }
+    private float lastAttackTime = 0f;
+    private List<SoldierStats> nearestSoldiers = new List<SoldierStats>();
 
-    private void Update()
+
+    private void FixedUpdate()
     {
-        if (canMove)
+
+        if (!isAttacking & target != null)
         {
-            if (!isAttacking)
-            {
-                StartCoroutine(nameof(Attack));
-            }
+            StartCoroutine(nameof(Attack));
         }
+
+        // Her 2 saniyede bir en yakın düşman kontrolü
+
+        // Her 2 saniyede bir en yakın düşman kontrolü
+        if (Time.time - lastAttackTime >= 2f && target == null)
+        {
+            Debug.Log("Searching for enemies...");
+            SearchForEnemies();
+            lastAttackTime = Time.time;
+        }
+
     }
 
     private IEnumerator Attack()
@@ -38,26 +48,45 @@ public class EnemyAI : MonoBehaviour
             if (target != null)
             {
                 // Askere zarar verme işlemi
-                target.GetComponent<SoldierStats>().TakeDamage(damage);
+                target.TakeDamage(damage);
                 Debug.Log("Attacking soldier!");
             }
+
+            // Saldırı tamamlandıktan sonra isAttacking değerini false olarak ayarla
+            isAttacking = false;
         }
     }
+    private void SearchForEnemies()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, enemyLayer);
 
+        nearestSoldiers.Clear();
+
+        foreach (Collider col in colliders)
+        {
+            nearestSoldiers.Add(col.transform.GetComponent<SoldierStats>());
+        }
+
+        if (nearestSoldiers.Count > 0)
+        {
+            FindNearestSoldier();
+        }
+    }
     private Transform FindNearestSoldier()
     {
-        SoldierStats[] soldiers = GameObject.FindObjectsOfType<SoldierStats>(); // Tüm askerleri bul
+
 
         SoldierStats nearestSoldier = null;
         float minDistance = Mathf.Infinity;
 
-        foreach (SoldierStats soldier in soldiers)
+        foreach (SoldierStats soldier in nearestSoldiers)
         {
             float distance = Vector3.Distance(transform.position, soldier.transform.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
-                nearestSoldier = soldier;
+                nearestSoldier = soldier.GetComponent<SoldierStats>();
+                target = nearestSoldier;
             }
         }
 
