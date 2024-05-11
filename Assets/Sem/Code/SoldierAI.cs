@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,7 +11,7 @@ public class SoldierAI : MonoBehaviour
     public LayerMask enemyLayer; // Düşmanın katmanı
     public float attackRange = 2f; // Saldırı menzili
     public float attackCooldown = 2f; // Saldırı bekleme süresi
-
+    private float attackPointTimer = 2f;
     public int damage;
 
     private NavMeshAgent navMeshAgent;
@@ -28,43 +27,51 @@ public class SoldierAI : MonoBehaviour
     }
 
     private void Update()
-{
-    if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance >= navMeshAgent.stoppingDistance)
     {
-        SearchForEnemies();
-    }
-
-    if (nearestEnemy != null)
-    {
-        float distanceToEnemy = Vector3.Distance(transform.position, nearestEnemy.position);
-
-        if (distanceToEnemy <= attackRange && !isAttacking)
+        if (attackPoint == null)
         {
-            StartCoroutine(nameof(Attack));
-        }
-        else if (distanceToEnemy > attackRange)
-        {
-            if (isAttacking)
+            attackPointTimer -= Time.deltaTime;
+            if (attackPointTimer <= 0f)
             {
-                StopCoroutine(nameof(Attack));
+                SearchForEnemies();
+                attackPointTimer = 2f; // Zamanlayıcıyı sıfırla
             }
-
-            navMeshAgent.SetDestination(nearestEnemy.position);
         }
-    }
-    else if (!isAttacking)
-    {
-        // Check for enemies within detection radius
-        Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, enemyLayer);
-
-        if (colliders.Length > 0)
+        if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance >= navMeshAgent.stoppingDistance)
         {
-            FindNearestEnemy();
+            SearchForEnemies();
         }
-    }
 
-    attackTimer -= Time.deltaTime;
-}
+        if (nearestEnemy != null)
+        {
+            float distanceToEnemy = Vector3.Distance(transform.position, nearestEnemy.position);
+
+            if (distanceToEnemy <= attackRange && !isAttacking)
+            {
+                StartCoroutine(nameof(Attack));
+            }
+            else if (distanceToEnemy > attackRange)
+            {
+                if (isAttacking)
+                {
+                    StopCoroutine(nameof(Attack));
+                }
+
+                navMeshAgent.SetDestination(nearestEnemy.position);
+            }
+        }
+        else if (!isAttacking)
+        {
+            Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, enemyLayer);
+
+            if (colliders.Length > 0)
+            {
+                FindNearestEnemy();
+            }
+        }
+
+        attackTimer -= Time.deltaTime;
+    }
 
     private void SearchForEnemies()
     {
@@ -84,59 +91,54 @@ public class SoldierAI : MonoBehaviour
     }
 
     private void FindNearestEnemy()
-{
-    float shortestDistance = Mathf.Infinity;
-    nearestEnemy = null;
-
-    foreach (Transform enemyTransform in enemyTransforms)
     {
-        if(enemyTransform == null) continue; // Skip if the enemy has been destroyed
+        float shortestDistance = Mathf.Infinity;
+        nearestEnemy = null;
 
-        float distanceToEnemy = Vector3.Distance(transform.position, enemyTransform.position);
-        if (distanceToEnemy < shortestDistance)
+        foreach (Transform enemyTransform in enemyTransforms)
         {
-            shortestDistance = distanceToEnemy;
-            nearestEnemy = enemyTransform;
-        }
-    }
-}
-private IEnumerator Attack()
-{
-    isAttacking = true;
+            if (enemyTransform == null) continue; // Skip if the enemy has been destroyed
 
-    while (nearestEnemy != null)
-    {
-        if (attackTimer <= 0f)
-        {
-            if(nearestEnemy.GetComponent<EnemyStats>() != null) // Check if the enemy still exists
+            float distanceToEnemy = Vector3.Distance(transform.position, enemyTransform.position);
+            if (distanceToEnemy < shortestDistance)
             {
-                nearestEnemy.GetComponent<EnemyStats>().TakeDamage(damage);
-                Debug.Log("Attacking enemy!");
-                attackTimer = attackCooldown;
-
-                SearchForEnemies(); // Update the list of enemies
-                FindNearestEnemy(); // Find the nearest enemy again
-            }
-            else
-            {
-                isAttacking = false;
-                yield break; // Exit the coroutine if the enemy is no longer valid
+                shortestDistance = distanceToEnemy;
+                nearestEnemy = enemyTransform;
             }
         }
-
-        yield return null;
     }
 
-    isAttacking = false;
-}
+    private IEnumerator Attack()
+    {
+        isAttacking = true;
+
+        while (nearestEnemy != null)
+        {
+            if (attackTimer <= 0f)
+            {
+                if (nearestEnemy.GetComponent<EnemyStats>() != null) // Check if the enemy still exists
+                {
+                    nearestEnemy.GetComponent<EnemyStats>().TakeDamage(damage);
+                    Debug.Log("Attack!");
+
+                    attackTimer = attackCooldown;
+                }
+                else
+                {
+                    nearestEnemy = null;
+                    StopCoroutine(nameof(Attack));
+                    break;
+                }
+            }
+
+            yield return null;
+        }
+
+        isAttacking = false;
+    }
+
     private void SetDestination(Vector3 destination)
     {
         navMeshAgent.SetDestination(destination);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 }
