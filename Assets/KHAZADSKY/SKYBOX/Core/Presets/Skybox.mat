@@ -13,6 +13,8 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _BACKGROUNDMODE_COLORS
+  - _CLOUDSLITBYSUN_ON
+  - _ENABLECLOUDSROTATION_ON
   - _ENABLEPATTERNOVERLAY_ON
   - _ENABLESTARSROTATION_ON
   - _ENABLESTARSTWINKLING_ON
@@ -50,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _CloudsCubemap:
-        m_Texture: {fileID: 8900000, guid: ac1b6b76ea3b68b41b391992d47806bd, type: 3}
+        m_Texture: {fileID: 8900000, guid: 5bf545dec997743419de1df4195b3a0d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MoonTexture:
@@ -81,14 +83,14 @@ Material:
     - _BackgroundMode: 0
     - _Banner: 1
     - _CloudsCat: 1
-    - _CloudsHeight: 0.097
-    - _CloudsLitbySun: 0
+    - _CloudsHeight: 0.5
+    - _CloudsLitbySun: 1
     - _CloudsRotation: 360
-    - _CloudsRotationSpeed: 0.5
+    - _CloudsRotationSpeed: 0.93
     - _ColorsCat: 1
     - _EnableBuiltinFog: 0
     - _EnableClouds: 0
-    - _EnableCloudsRotation: 0
+    - _EnableCloudsRotation: 1
     - _EnableFogMessage: 0
     - _EnableMoon: 0
     - _EnablePatternOverlay: 1
@@ -106,7 +108,7 @@ Material:
     - _MoonIntensity: 10
     - _MoonSize: 1
     - _PatternCat: 1
-    - _PatternContrast: 0.82
+    - _PatternContrast: 0
     - _SkyboxCat: 1
     - _SkyboxRotation: 0
     - _StarsCat: 1
@@ -125,12 +127,12 @@ Material:
     - _TwinklingSpeed: 0.05
     - _backgroundCat: 1
     m_Colors:
-    - _CloudsLightColor: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 1}
-    - _CloudsShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _CloudsLightColor: {r: 0.745283, g: 0.73473656, b: 0.73473656, a: 1}
+    - _CloudsShadowColor: {r: 0.2924528, g: 0.28003737, b: 0.28003737, a: 1}
     - _EquatorColor: {r: 1, g: 1, b: 1, a: 1}
     - _GroundColor: {r: 0.754717, g: 0.7395738, b: 0.7013172, a: 1}
     - _MoonColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SkyColor: {r: 0.8584906, g: 0.751693, b: 0.4818886, a: 1}
+    - _SkyColor: {r: 0.49942148, g: 0.77908295, b: 0.8207547, a: 1}
     - _SkyboxRotationAxis: {r: 0, g: 1, b: 0, a: 0}
     - _SunColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

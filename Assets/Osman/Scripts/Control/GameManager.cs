@@ -76,4 +76,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void CheckWin()
+    {
+        if (enemies.Count == 0)
+        {
+            EvntManager.TriggerEvent("Win");
+        }
+    }
 }
