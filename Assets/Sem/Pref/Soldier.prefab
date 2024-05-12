@@ -1050,7 +1050,7 @@ Transform:
   m_GameObject: {fileID: 2482477960317889562}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.06399989, y: -1.2399998, z: 0.062999725}
+  m_LocalPosition: {x: 0.06399989, y: -2.194, z: 0.062999725}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1699,7 +1699,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.92, y: 1, z: -16.08}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3691628568508635589}
@@ -1828,6 +1828,7 @@ MonoBehaviour:
     m_Bits: 64
   attackRange: 5
   attackCooldown: 2
+  _animScript: {fileID: 0}
   damage: 25
 --- !u!114 &2732427054253679632
 MonoBehaviour:
@@ -2070,7 +2071,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 8189825283883537163}
-  animator: {fileID: 6963242270876046868}
   speed: 0
   fire: {fileID: 1112174067931717004}
   death: {fileID: 720060922598520933}

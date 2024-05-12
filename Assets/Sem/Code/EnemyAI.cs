@@ -43,7 +43,6 @@ public class EnemyAI : MonoBehaviour
             SearchForEnemies();
             lastAttackTime = Time.time;
         }
-
     }
 
     private IEnumerator Attack()
