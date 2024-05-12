@@ -16,6 +16,7 @@ public class SoldierAI : MonoBehaviour
     public float attackRange = 2f; // Saldırı menzili
     public float attackCooldown = 2f; // Saldırı bekleme süresi
     private float attackPointTimer = 2f;
+    public AnimChars _animScript;
     public int damage;
 
     private NavMeshAgent navMeshAgent;
@@ -26,6 +27,7 @@ public class SoldierAI : MonoBehaviour
 
     private void Start()
     {
+        _animScript = GetComponent<AnimChars>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         _audioSource = GetComponent<AudioSource>();
         EvntManager.StartListening("Atack", AttackForward);
@@ -133,7 +135,7 @@ public class SoldierAI : MonoBehaviour
                 if (nearestEnemy.GetComponent<EnemyStats>() != null) // Check if the enemy still exists
                 {
                     _audioSource.PlayOneShot(_shoot, 0.5f);
-                    EvntManager.TriggerEvent("Fire");
+                    _animScript.Fire();
                     nearestEnemy.GetComponent<EnemyStats>().TakeDamage(damage);
                     attackTimer = attackCooldown;
                 }

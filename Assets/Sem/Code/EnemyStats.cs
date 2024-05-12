@@ -8,8 +8,12 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] int prizeAmount;
     public int currentHealth;
     private bool isDead = false;
+    private AnimChars _animScript;
+    private EnemyAI _enemyAI;
     private void Start()
     {
+        _animScript = GetComponentInChildren<AnimChars>();
+        _enemyAI = GetComponent<EnemyAI>();
         currentHealth = maxHealth;
     }
     public void TakeDamage(int damage)
@@ -24,6 +28,7 @@ public class EnemyStats : MonoBehaviour
     {
 
         MoneyManager.instance.AddMoney(prizeAmount);
+        _animScript.DeathParticle();
         isDead = false;
         Invoke(nameof(Die), 1f);
     }
@@ -32,8 +37,7 @@ public class EnemyStats : MonoBehaviour
     void Die()
     {
         GameManager.instance.killCount++;
-        EvntManager.TriggerEvent("DeathParticle");
-        EvntManager.TriggerEvent("DeathSoud");
+        _enemyAI.DieSoundPlay();
         Destroy(gameObject);
     }
 

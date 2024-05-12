@@ -6,7 +6,7 @@ using UnityEngine.ParticleSystemJobs;
 public class AnimChars : MonoBehaviour
 {
     public NavMeshAgent navMeshAgent;
-    public Animator animator;
+    private Animator animator;
     public float speed;
     //public Transform TestTramsform;
     public ParticleSystem fire;
@@ -15,7 +15,7 @@ public class AnimChars : MonoBehaviour
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        EvntManager.StartListening("Fire", Fire);
+        animator = GetComponent<Animator>();
         EvntManager.StartListening("DeathParticle", DeathParticle);
         //navMeshAgent.destination = TestTramsform.position;
         //Invoke("Fire",2f);
