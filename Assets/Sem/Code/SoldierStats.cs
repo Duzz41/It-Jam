@@ -21,7 +21,7 @@ public class SoldierStats : MonoBehaviour
             EvntManager.TriggerEvent("DeathSoud");
             EvntManager.TriggerEvent("CameraShake");
             isDead = true;
-            Invoke(nameof(Die), 0.5f);
+            Invoke(nameof(Die), 2f);
         }
     }
 
@@ -31,6 +31,7 @@ public class SoldierStats : MonoBehaviour
         {
             isDead = false;
             GameManager.instance.currentSoldierCount--;
+
             Destroy(gameObject);
         }
     }

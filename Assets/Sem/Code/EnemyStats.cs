@@ -7,26 +7,34 @@ public class EnemyStats : MonoBehaviour
     public int maxHealth = 100;
     [SerializeField] int prizeAmount;
     public int currentHealth;
+    private bool isDead = false;
     private void Start()
     {
         currentHealth = maxHealth;
     }
-
     public void TakeDamage(int damage)
     {
-
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            GameManager.instance.killCount++;
-            EvntManager.TriggerEvent("DeathSoud");
-            MoneyManager.instance.AddMoney(prizeAmount);
-            Invoke(nameof(Die), 0.5f);
+            Death();
         }
     }
+    void Death()
+    {
+
+        MoneyManager.instance.AddMoney(prizeAmount);
+        isDead = false;
+        Invoke(nameof(Die), 1f);
+    }
+
 
     void Die()
     {
+        GameManager.instance.killCount++;
+        EvntManager.TriggerEvent("DeathParticle");
+        EvntManager.TriggerEvent("DeathSoud");
         Destroy(gameObject);
     }
+
 }

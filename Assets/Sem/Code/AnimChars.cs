@@ -8,15 +8,17 @@ public class AnimChars : MonoBehaviour
     public NavMeshAgent navMeshAgent;
     public Animator animator;
     public float speed;
-    public Transform TestTramsform;
+    //public Transform TestTramsform;
     public ParticleSystem fire;
     public ParticleSystem death;
 
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        navMeshAgent.destination = TestTramsform.position;
-        Invoke("Fire",2f);
+        EvntManager.StartListening("Fire", Fire);
+        EvntManager.StartListening("DeathParticle", DeathParticle);
+        //navMeshAgent.destination = TestTramsform.position;
+        //Invoke("Fire",2f);
     }
     // Update is called once per frame
     void Update()

@@ -36,7 +36,7 @@ public class SoldierAI : MonoBehaviour
 
     private void Update()
     {
-        _audioSource.volume = AudioManager.instance.sfxSource.volume / 2f;
+
         if (attackPoint == null)
         {
             attackPointTimer -= Time.deltaTime;
@@ -133,8 +133,8 @@ public class SoldierAI : MonoBehaviour
                 if (nearestEnemy.GetComponent<EnemyStats>() != null) // Check if the enemy still exists
                 {
                     _audioSource.PlayOneShot(_shoot, 0.5f);
+                    EvntManager.TriggerEvent("Fire");
                     nearestEnemy.GetComponent<EnemyStats>().TakeDamage(damage);
-
                     attackTimer = attackCooldown;
                 }
                 else
@@ -157,7 +157,8 @@ public class SoldierAI : MonoBehaviour
     }
     public void DeathSound()
     {
-        _audioSource.PlayOneShot(_die[Random.Range(0, 2)], 0.5f);
+        _audioSource.volume = 0.1f;
+        _audioSource.PlayOneShot(_die[Random.Range(0, 2)], 2f);
     }
     public void UpgradeAttackStats()
     {
