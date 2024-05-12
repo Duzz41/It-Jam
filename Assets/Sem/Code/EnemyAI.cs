@@ -18,16 +18,18 @@ public class EnemyAI : MonoBehaviour
     private AudioSource _audioSource;
     public AudioClip _shoot;
     public AudioClip[] _die;
+    private AnimChars _animScript;
+    int i;
 
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
-        EvntManager.StartListening("DeathSoud", DieSoundPlay);
+        _animScript = GetComponentInChildren<AnimChars>();
     }
 
     private void FixedUpdate()
     {
-        _audioSource.volume = AudioManager.instance.sfxSource.volume / 2f;
+
         if (!isAttacking & target != null)
         {
             StartCoroutine(nameof(Attack));
@@ -55,9 +57,10 @@ public class EnemyAI : MonoBehaviour
             if (target != null)
             {
                 // Askere zarar verme işlemi
+                _animScript.Fire();
                 _audioSource.PlayOneShot(_shoot, 0.5f);
-
                 target.TakeDamage(damage);
+
             }
 
             // Saldırı tamamlandıktan sonra isAttacking değerini false olarak ayarla
@@ -102,6 +105,8 @@ public class EnemyAI : MonoBehaviour
     }
     public void DieSoundPlay()
     {
-        _audioSource.PlayOneShot(_die[UnityEngine.Random.Range(0, 2)], 0.5f);
+        Debug.Log("NNNNNNAAABERRRR");
+        _audioSource.volume = 0.1f;
+        _audioSource.PlayOneShot(_die[UnityEngine.Random.Range(0, 2)], 1f);
     }
 }

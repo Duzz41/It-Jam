@@ -7,10 +7,12 @@ public class SoldierStats : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
     private bool isDead = false;
+    private AnimChars _animScript;
     //Tüm askerlerimiz öldüğünde CameraShake eventmanagerı çağırılması.
     private void Start()
     {
         currentHealth = maxHealth;
+        _animScript = GetComponent<AnimChars>();
         EvntManager.StartListening<int>("IncrHealth", IncreaseHealth);
     }
     public void TakeDamage(int damage)
@@ -20,8 +22,9 @@ public class SoldierStats : MonoBehaviour
         {
             EvntManager.TriggerEvent("DeathSoud");
             EvntManager.TriggerEvent("CameraShake");
+            _animScript.DeathParticle();
             isDead = true;
-            Invoke(nameof(Die), 0.5f);
+            Invoke(nameof(Die), 2f);
         }
     }
 
@@ -31,6 +34,7 @@ public class SoldierStats : MonoBehaviour
         {
             isDead = false;
             GameManager.instance.currentSoldierCount--;
+
             Destroy(gameObject);
         }
     }

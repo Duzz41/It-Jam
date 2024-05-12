@@ -47,7 +47,7 @@ public class SoldierInstante : MonoBehaviour
                     {
 
                         MoneyManager.instance.RemoveMoney(20);
-                        GameObject newSoldier = Instantiate(soldier, spawPos[i].position, Quaternion.identity);
+                        GameObject newSoldier = Instantiate(soldier, spawPos[i].position, spawPos[i].rotation);
 
                         soldierList.Add(newSoldier);
                         GameManager.instance.currentSoldierCount++;
