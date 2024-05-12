@@ -106,7 +106,7 @@ Material:
     - _MoonIntensity: 10
     - _MoonSize: 1
     - _PatternCat: 1
-    - _PatternContrast: 0
+    - _PatternContrast: 0.82
     - _SkyboxCat: 1
     - _SkyboxRotation: 0
     - _StarsCat: 1
@@ -118,8 +118,8 @@ Material:
     - _StarsSize: 0
     - _StarsSunMask: 0
     - _SunCat: 1
-    - _SunIntensity: 4.63
-    - _SunSize: 0.51
+    - _SunIntensity: 4.2
+    - _SunSize: 0.265
     - _TITLE: 1
     - _TwinklingContrast: 1.5
     - _TwinklingSpeed: 0.05
