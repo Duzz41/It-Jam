@@ -23,4 +23,12 @@ public class SoundSettings : MonoBehaviour
         AudioManager.instance.MusicVolume(volume);
         AudioManager.instance.SFXVolume(volume);
     }
+
+    public void OpenSlider()
+    {
+        if (musicSlider.gameObject.activeSelf == false)
+            musicSlider.gameObject.SetActive(true);
+        else
+            musicSlider.gameObject.SetActive(false);
+    }
 }

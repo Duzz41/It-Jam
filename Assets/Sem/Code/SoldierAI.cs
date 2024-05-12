@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.AI;
 
 public class SoldierAI : MonoBehaviour
 {
+    private AudioSource _audioSource;
+    public AudioClip _shoot;
+    public AudioClip[] _die;
     public Transform target; // Hedef nokta (örneğin, askerin ilk ulaşması gereken nokta)
     public Transform attackPoint; // Saldırı noktası (örneğin, düşmana ateş edilecek nokta)
     public float detectionRadius = 10f; // Düşman algılama yarıçapı
@@ -23,11 +27,16 @@ public class SoldierAI : MonoBehaviour
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        SetDestination(target.position);
+        _audioSource = GetComponent<AudioSource>();
+        EvntManager.StartListening("Atack", AttackForward);
+        EvntManager.StartListening("DeathSoud", DeathSound);
+        EvntManager.StartListening("UpgradeAttack", UpgradeAttackStats);
     }
+
 
     private void Update()
     {
+        _audioSource.volume = AudioManager.instance.sfxSource.volume / 2f;
         if (attackPoint == null)
         {
             attackPointTimer -= Time.deltaTime;
@@ -71,6 +80,11 @@ public class SoldierAI : MonoBehaviour
         }
 
         attackTimer -= Time.deltaTime;
+    }
+    void AttackForward()
+    {
+        target = GameObject.FindWithTag("Target").transform;
+        SetDestination(target.position);
     }
 
     private void SearchForEnemies()
@@ -118,8 +132,8 @@ public class SoldierAI : MonoBehaviour
             {
                 if (nearestEnemy.GetComponent<EnemyStats>() != null) // Check if the enemy still exists
                 {
+                    _audioSource.PlayOneShot(_shoot, 0.5f);
                     nearestEnemy.GetComponent<EnemyStats>().TakeDamage(damage);
-                    Debug.Log("Attack!");
 
                     attackTimer = attackCooldown;
                 }
@@ -140,5 +154,13 @@ public class SoldierAI : MonoBehaviour
     private void SetDestination(Vector3 destination)
     {
         navMeshAgent.SetDestination(destination);
+    }
+    public void DeathSound()
+    {
+        _audioSource.PlayOneShot(_die[Random.Range(0, 2)], 0.5f);
+    }
+    public void UpgradeAttackStats()
+    {
+        damage += 10;
     }
 }

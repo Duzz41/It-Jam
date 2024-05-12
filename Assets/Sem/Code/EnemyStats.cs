@@ -5,19 +5,23 @@ using UnityEngine;
 public class EnemyStats : MonoBehaviour
 {
     public int maxHealth = 100;
+    [SerializeField] int prizeAmount;
     public int currentHealth;
-    private void Start() {
+    private void Start()
+    {
         currentHealth = maxHealth;
     }
+
     public void TakeDamage(int damage)
     {
-        Debug.Log("AH UH");
 
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            Debug.Log("Dead");
-            Die();
+            GameManager.instance.killCount++;
+            EvntManager.TriggerEvent("DeathSoud");
+            MoneyManager.instance.AddMoney(prizeAmount);
+            Invoke(nameof(Die), 0.5f);
         }
     }
 
