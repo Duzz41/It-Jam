@@ -381,6 +381,11 @@ MonoBehaviour:
   _startPos: {fileID: 779685871}
   _target1: {fileID: 1172015261}
   _target2: {fileID: 1623282260}
+  _target3: {fileID: 0}
+  _target4: {fileID: 0}
+  _target5: {fileID: 0}
+  _target6: {fileID: 0}
+  _isFighting: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0

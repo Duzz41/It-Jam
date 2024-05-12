@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class EnemyAI : MonoBehaviour
     public AudioClip[] _die;
     private AnimChars _animScript;
     int i;
+    public GameObject _body;
 
     void Start()
     {
@@ -51,10 +53,12 @@ public class EnemyAI : MonoBehaviour
 
         while (isAttacking)
         {
+
             yield return new WaitForSeconds(2f);
 
             if (target != null)
             {
+                _body.transform.DOLookAt(target.transform.position, 0.5f, AxisConstraint.Y, null);
                 // Askere zarar verme işlemi
                 _animScript.Fire();
                 _audioSource.PlayOneShot(_shoot, 0.5f);

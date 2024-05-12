@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
         {
             EvntManager.TriggerEvent("MoveSixthLocation");
         }
+        CheckWin();
     }
 
     public void SpawnAllEnemies()

@@ -56,7 +56,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 1
+  m_BaseOffset: 0.96
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &6687665872459097337
@@ -96,6 +96,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a21969ed1a10eed409051324a8489a3e, type: 3}
   - {fileID: 8300000, guid: 0f1db07607826e74d89f5d356225b148, type: 3}
   - {fileID: 8300000, guid: 2d4ca32b1de601d4d8b624245d014856, type: 3}
+  _body: {fileID: 2762881329193452313}
 --- !u!82 &4410941721895186909
 AudioSource:
   m_ObjectHideFlags: 0
@@ -304,6 +305,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b47eac87f92b29c4ab37da2d45a40e26, type: 3}
+--- !u!1 &2762881329193452313 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7283566817995688003, guid: b47eac87f92b29c4ab37da2d45a40e26,
+    type: 3}
+  m_PrefabInstance: {fileID: 4846951271868271450}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3466694635823091706 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8313637108366099616, guid: b47eac87f92b29c4ab37da2d45a40e26,

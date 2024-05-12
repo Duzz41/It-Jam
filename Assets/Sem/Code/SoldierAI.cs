@@ -120,6 +120,7 @@ public class SoldierAI : MonoBehaviour
             {
                 shortestDistance = distanceToEnemy;
                 nearestEnemy = enemyTransform;
+                attackPoint = nearestEnemy;
             }
         }
     }
