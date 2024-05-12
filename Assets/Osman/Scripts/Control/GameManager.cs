@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public CameraMovement cameraMovement;
     private List<GameObject> enemies = new List<GameObject>();
 
+    public int killCount = 0;
     public void Awake()
     {
         if (instance == null)
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
     {
         if (currentSoldierCount == 0 && cameraMovement._isFighting == true)
         {
+            killCount = 0;
             soldierList.i = 0;
             soldierList.soldierList.Clear();
             GameObject newSoldier = Instantiate(soldierList.soldier, soldierList.spawPos[soldierList.i].position, Quaternion.identity);
@@ -38,6 +40,22 @@ public class GameManager : MonoBehaviour
             soldierList.i++;
             currentSoldierCount++;
             EvntManager.TriggerEvent("CameraMoveBack");
+        }
+        else if (killCount == 15 && cameraMovement._isFighting == true)
+        {
+            EvntManager.TriggerEvent("MoveThirdLocation");
+        }
+        else if (killCount == 26 && cameraMovement._isFighting == true)
+        {
+            EvntManager.TriggerEvent("MoveFourthLocation");
+        }
+        else if (killCount == 44 && cameraMovement._isFighting == true)
+        {
+            EvntManager.TriggerEvent("MoveFifthLocation");
+        }
+        else if (killCount == 60 && cameraMovement._isFighting == true)
+        {
+            EvntManager.TriggerEvent("MoveSixthLocation");
         }
     }
 

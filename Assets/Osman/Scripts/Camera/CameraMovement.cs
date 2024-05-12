@@ -12,6 +12,14 @@ public class CameraMovement : MonoBehaviour
     private Transform _target1;
     [SerializeField]
     private Transform _target2;
+    [SerializeField]
+    private Transform _target3;
+    [SerializeField]
+    private Transform _target4;
+    [SerializeField]
+    private Transform _target5;
+    [SerializeField]
+    private Transform _target6;
 
     public bool _isFighting = false;
 
@@ -19,6 +27,10 @@ public class CameraMovement : MonoBehaviour
     {
         _camera = GetComponent<Camera>();
         EvntManager.StartListening("CameraMove", CameraMove);
+        EvntManager.StartListening("MoveThirdLocation", MoveThirdLocation);
+        EvntManager.StartListening("MoveFourthLocation", MoveFourthLocation);
+        EvntManager.StartListening("MoveFifthLocation", MoveFifthLocation);
+        EvntManager.StartListening("MoveSixthLocation", MoveSixthLocation);
         EvntManager.StartListening("CameraMoveBack", CameraMoveBack);
         EvntManager.StartListening("CameraShake", CameraShake);
     }
@@ -36,6 +48,26 @@ public class CameraMovement : MonoBehaviour
     {
         transform.DOMove(_target2.position, 4f);
         transform.DORotate(_target2.rotation.eulerAngles, 4f);
+    }
+    void MoveThirdLocation()
+    {
+        transform.DOMove(_target3.position, 3f);
+        transform.DORotate(_target3.rotation.eulerAngles, 3f);
+    }
+    void MoveFourthLocation()
+    {
+        transform.DOMove(_target4.position, 3f);
+        transform.DORotate(_target4.rotation.eulerAngles, 3f);
+    }
+    void MoveFifthLocation()
+    {
+        transform.DOMove(_target5.position, 3f);
+        transform.DORotate(_target5.rotation.eulerAngles, 3f);
+    }
+    void MoveSixthLocation()
+    {
+        transform.DOMove(_target6.position, 3f);
+        transform.DORotate(_target6.rotation.eulerAngles, 3f);
     }
     //Şu anda butona bağlı bunu savaş bittiği vakit olacak olan fonksiyona bağlanacak.
     public void CameraMoveBack()
