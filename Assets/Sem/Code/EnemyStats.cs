@@ -11,12 +11,14 @@ public class EnemyStats : MonoBehaviour
     {
         currentHealth = maxHealth;
     }
+
     public void TakeDamage(int damage)
     {
 
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
+            GameManager.instance.killCount++;
             EvntManager.TriggerEvent("DeathSoud");
             MoneyManager.instance.AddMoney(prizeAmount);
             Invoke(nameof(Die), 0.5f);
