@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: a9cd0ad6f2dbdf4418602c7bb1ff3de3
   - enabled: 1
-    path: Assets/Scenes/SemTest.unity
+    path: Assets/Scenes/SemTesttttt.unity
     guid: ab97e4f8bc0002b46ab72a1ca5ba515f
   m_configObjects: {}
