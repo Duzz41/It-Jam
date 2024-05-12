@@ -1,32 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class WinState : MonoBehaviour
 {
-    public List<EnemyStats> enemies = new List<EnemyStats>();
-
-    public EnemyStats[] enemy;
-
+    public GameObject winPanel;
     private void Start()
     {
-        FindAllEnemies();
-        EvntManager.StartListening<EnemyStats>("Score", CheckWinState);
+        winPanel.SetActive(false);
+        EvntManager.StartListening("Win", Winn);
     }
-    public void FindAllEnemies()
+    private void Winn()
     {
-        enemy = GameObject.FindObjectsOfType<EnemyStats>();
-        foreach (EnemyStats item in enemy)
-        {
-            enemies.Add(item);
-        }
-    }
-    public void CheckWinState(EnemyStats stat)
-    {
-        enemies.Remove(stat);
-        if (enemies.Count == 0)
-        {
-           //oyunu burada kazanıyorsun
-        }
+        winPanel.SetActive(true);
     }
 }

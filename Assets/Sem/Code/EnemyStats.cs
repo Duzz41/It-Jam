@@ -7,7 +7,6 @@ public class EnemyStats : MonoBehaviour
     public int maxHealth = 100;
     [SerializeField] int prizeAmount;
     public int currentHealth;
-    private bool isDead = false;
     private AnimChars _animScript;
     private EnemyAI _enemyAI;
     private void Start()
@@ -29,7 +28,7 @@ public class EnemyStats : MonoBehaviour
 
         MoneyManager.instance.AddMoney(prizeAmount);
         _animScript.DeathParticle();
-        isDead = false;
+
         Invoke(nameof(Die), 1f);
     }
 

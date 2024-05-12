@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class WinSeq : MonoBehaviour
 {
-    private void Start() {
+    private void Start()
+    {
         EvntManager.StartListening("Win", Win);
 
     }
-    private void Win() {
-        
+    private void Win()
+    {
+
     }
 }
