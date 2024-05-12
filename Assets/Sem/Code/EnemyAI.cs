@@ -43,6 +43,14 @@ public class EnemyAI : MonoBehaviour
             SearchForEnemies();
             lastAttackTime = Time.time;
         }
+<<<<<<< Updated upstream
+=======
+
+        if(target != null)
+        {
+            transform.LookAt(target.transform.position);
+        }
+>>>>>>> Stashed changes
     }
 
     private IEnumerator Attack()
