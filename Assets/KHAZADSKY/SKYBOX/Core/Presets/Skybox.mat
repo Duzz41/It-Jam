@@ -96,8 +96,8 @@ Material:
     - _EnableStarsRotation: 1
     - _EnableStarsTwinkling: 1
     - _EnableSun: 1
-    - _EquatorHeight: 0
-    - _EquatorSmoothness: 0.974
+    - _EquatorHeight: 0.231
+    - _EquatorSmoothness: 0.925
     - _FogCat: 1
     - _FogFill: 0
     - _FogHeight: 0.13
@@ -128,9 +128,9 @@ Material:
     - _CloudsLightColor: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 1}
     - _CloudsShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _EquatorColor: {r: 1, g: 1, b: 1, a: 1}
-    - _GroundColor: {r: 0.85098046, g: 0.7019608, b: 0.3254902, a: 1}
+    - _GroundColor: {r: 0.754717, g: 0.7395738, b: 0.7013172, a: 1}
     - _MoonColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SkyColor: {r: 0.8490566, g: 0.70138276, b: 0.3244037, a: 1}
+    - _SkyColor: {r: 0.8584906, g: 0.751693, b: 0.4818886, a: 1}
     - _SkyboxRotationAxis: {r: 0, g: 1, b: 0, a: 0}
     - _SunColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
